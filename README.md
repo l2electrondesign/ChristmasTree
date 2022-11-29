@@ -50,5 +50,7 @@ The status byte is used by the device to save important data to EEPROM. It is st
 `x | x | pic_dynamic | led_en | pic_index[3:0]`
 
 To program a custom picture use the `c` command. The index must be provided as a two character decimal value. The data must be provided by 12 character array. Every color has 8 bit depth and must be provided in decimal format (between 0 and 255).
+
+In the example folder you can find a python class as well as a simple example using this class.
 ## Hardware expansion headers
 An expansion header is placed on the backside of the PCB. The connectivity is written in the silkscreen. Currently no functionality is implemented through this header but it can be used in custom software. Another expansion capability is the header after the last LED. Additional LEDs could be placed in the data path. Make sure to use the same model (SK6812 RGBW) to guarantee protocol compatibility. 
