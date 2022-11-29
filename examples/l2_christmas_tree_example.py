@@ -1,3 +1,6 @@
+# Tim Lauber
+# L2 Electron Design
+
 from l2_christmas_tree import l2_christmas_tree
 
 christmas_tree = l2_christmas_tree('/dev/ttyUSB0')

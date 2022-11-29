@@ -1,3 +1,6 @@
+# Tim Lauber
+# L2 Electron Design
+
 import serial
 import time
 
