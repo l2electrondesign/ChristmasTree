@@ -43,7 +43,6 @@ class l2_christmas_tree:
         if (pixel_index < 24) and (r < 256) and (g < 256) and (b < 256) and (w < 256):
             string_to_send = 'c' + str(pixel_index).zfill(2) + str(r).zfill(3) + str(g).zfill(3) + str(b).zfill(3) + str(w).zfill(3) + '\n'
             self.ser.write(string_to_send.encode('utf-8'))
-            self.ser.flush()
             if self.verbose: print(f'Pixel {pixel_index} changed to r = {r}, g = {g}, b = {b}, w = {w}!')
         else:
             if self.verbose: print(f'Either the pixel index or one of the colors was out of range!')
@@ -53,7 +52,6 @@ class l2_christmas_tree:
         # pixel_array: All the pixels that should be set. Can also be a subset of all pixels. Format should be [index, r, g, b, w]
         for pixel in pixel_array:
             self.set_pixel(pixel[0], pixel[1], pixel[2], pixel[3], pixel[4])
-            time.sleep(0.01) # Unfortunately necessary
 
     def save(self):
         # Save current picture to EEPROM
