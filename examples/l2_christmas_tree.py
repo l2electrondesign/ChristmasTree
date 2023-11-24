@@ -10,6 +10,7 @@ class l2_christmas_tree:
         # com: COM port string
         self.com = com
         self.verbose = verbose
+        self.state = [[0,0,0,0]]*24
 
     def connect(self):
         # Connect to device
@@ -40,12 +41,16 @@ class l2_christmas_tree:
         # g: green, 0-255
         # b: blue, 0-255
         # w: white, 0-255
-        if (pixel_index < 24) and (r < 256) and (g < 256) and (b < 256) and (w < 256):
-            string_to_send = 'c' + str(pixel_index).zfill(2) + str(r).zfill(3) + str(g).zfill(3) + str(b).zfill(3) + str(w).zfill(3) + '\n'
-            self.ser.write(string_to_send.encode('utf-8'))
-            if self.verbose: print(f'Pixel {pixel_index} changed to r = {r}, g = {g}, b = {b}, w = {w}!')
+        if (self.state[pixel_index][0] != r) or (self.state[pixel_index][1] != g) or (self.state[pixel_index][2] != b) or (self.state[pixel_index][3] != w):
+            if (pixel_index < 24) and (r < 256) and (g < 256) and (b < 256) and (w < 256):
+                string_to_send = 'c' + str(pixel_index).zfill(2) + str(r).zfill(3) + str(g).zfill(3) + str(b).zfill(3) + str(w).zfill(3) + '\n'
+                self.ser.write(string_to_send.encode('utf-8'))
+                self.state[pixel_index] = [r, g, b, w]
+                if self.verbose: print(f'Pixel {pixel_index} changed to r = {r}, g = {g}, b = {b}, w = {w}!')
+            else:
+                if self.verbose: print(f'Either the pixel index or one of the colors was out of range!')
         else:
-            if self.verbose: print(f'Either the pixel index or one of the colors was out of range!')
+            if self.verbose: print('This pixel was already set to this color. No new data has been sent!')
 
     def set_pixel_array(self, pixel_array):
         # Send array of data.
